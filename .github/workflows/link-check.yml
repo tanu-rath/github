@@ -1,0 +1,31 @@
+name: 🔗 Check for Broken Links
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 2 * * *'  # Runs every day at 2 AM UTC
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3
+
+      - name: ⚡ Install lychee
+        uses: lycheeverse/lychee-action@v1.8.0
+
+      - name: 🔍 Check for broken links
+        run: |
+          lychee --verbose --no-progress './**/*.html' './**/*.md' \
+            --base https://tanu-rath.github.io/<github> \
+            --exclude-mail
+
+      - name: 📤 Upload lychee report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lychee-report
+          path: lychee-out.md
