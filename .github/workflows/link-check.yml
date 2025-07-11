@@ -22,7 +22,7 @@ jobs:
         run: |
           lychee --verbose --no-progress './**/*.html' './**/*.md' \
             --base https://tanu-rath.github.io/github \
-            --exclude-mail
+            --exclude-mail --accept 403 >lychee-out.md
 
       - name: 📤 Upload lychee report
         uses: actions/upload-artifact@v4
