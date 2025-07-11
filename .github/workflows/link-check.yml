@@ -19,10 +19,12 @@ jobs:
         uses: lycheeverse/lychee-action@v1.8.0
 
       - name: 🔍 Check for broken links
-        run: |
-          lychee --verbose --no-progress './**/*.html' './**/*.md' \
-            --base https://tanu-rath.github.io/<github> \
-            --exclude-mail
+       run: |
+         lychee --verbose --no-progress './**/*.html' './**/*.md' \
+           --base https://tanu-rath.github.io/github \
+           --exclude-mail > lychee-out.md
+         |
+          
 
       - name: 📤 Upload lychee report
         uses: actions/upload-artifact@v4
